@@ -1,0 +1,1 @@
+const gNewsApiKey = 'c3a923b17d2cc6e5851c0b6e454adb53';
