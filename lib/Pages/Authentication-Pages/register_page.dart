@@ -8,6 +8,7 @@ import '../../widgets/square_tile.dart';
 import '../home_page.dart';
 import 'login_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:new_app/Pages/services/auth_services.dart';
 
 class RegisterPage extends StatefulWidget {
   RegisterPage({super.key});
@@ -24,7 +25,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final userNameController = TextEditingController();
 
-  // Firebase Authentication instance
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
 // Register method
@@ -41,13 +41,11 @@ class _RegisterPageState extends State<RegisterPage> {
         });
 
     try {
-      // creating the user
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
 
       Navigator.pop(context);
 
-      // Show Snackbar with success message
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Account created successfully'),
@@ -55,17 +53,13 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       );
 
-      // Navigate to home page
       Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
-          (route) =>false
-      );
+          context,
+          MaterialPageRoute(builder: (context) => const HomePage()),
+          (route) => false);
     } catch (e) {
-      // Hide loading indicator
       Navigator.pop(context);
 
-      // Show Snackbar with error message
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Error: ${e.toString()}'),
@@ -87,12 +81,10 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(
                   height: 20,
                 ),
-                //logo , icon or image
-                // Image.asset(
-                //   'assets/login img.png',
-                //   height: 170,
-                // ),
-            const Icon(Icons.person,size: 150,),
+                const Icon(
+                  Icons.person,
+                  size: 150,
+                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -112,7 +104,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   hinttext: 'Enter your username',
                 ),
                 // email text-field
-                const SizedBox(height: 5,),
+                const SizedBox(
+                  height: 5,
+                ),
                 MyTextField(
                   controller: emailController,
                   icon: const Icon(Icons.email),
@@ -174,18 +168,23 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 // Google or twitter
 
-                 Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SquareContainer(
-                      onTap: (){},
+                        onTap: () {
+                          AuthService().signInWithGoogle();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomePage()));
+                        },
                         imagePath: 'assets/google.png'),
                     const SizedBox(
                       width: 25,
                     ),
                     SquareContainer(
-                      onTap: (){},
-                        imagePath: 'assets/twitter 2.png')
+                        onTap: () {}, imagePath: 'assets/twitter 2.png')
                   ],
                 ),
                 const SizedBox(

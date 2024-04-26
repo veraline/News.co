@@ -9,8 +9,8 @@ class ProfilePage extends StatelessWidget {
   ProfilePage({super.key});
 
   final currentUser = FirebaseAuth.instance.currentUser!;
-// editfield
-  Future<void> editField(String Field) async {}
+
+  Future<void> editField(String field) async {}
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +32,6 @@ class ProfilePage extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          // Text(
-          //   FirebaseAuth.instance.currentUser!.email.toString(),
-          //   style: const TextStyle(color: Colors.black, fontSize: 30),
-          // ),
           const SizedBox(
             height: 50,
           ),
